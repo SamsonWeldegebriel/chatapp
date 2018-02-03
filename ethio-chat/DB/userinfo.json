@@ -1,0 +1,4 @@
+{"_id":{"$oid":"5a7626babcf27fd277674527"},"name":"test name","username":"test","password":"14087695","phone":"12345678","email":"test@gmail.com","photo":"asdfasdf.jpg","friends":[{"username":"samson","status":"Friend"}]}
+{"_id":{"$oid":"5a762701bcf27fd277674528"},"name":"samson name","username":"samson","password":"19208909098","phone":"09876543","email":"samson@gmail.com","photo":"asdfasdf.jpg","friends":[{"username":"test","status":"Friend"}]}
+{"_id":{"$oid":"5a762e64bcf27fd277674529"},"name":"samson name","username":"samson","password":"19208909098","phone":"09876543","email":"samson@gmail.com","photo":"asdfasdf.jpg","friends":[{"username":"test","status":"Friend"}]}
+{"_id":{"$oid":"5a762e66bcf27fd27767452a"},"name":"samson name","username":"samson","password":"19208909098","phone":"09876543","email":"samson@gmail.com","photo":"asdfasdf.jpg","friends":[{"username":"test","status":"Friend"}]}

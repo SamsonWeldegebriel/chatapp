@@ -1,0 +1,2 @@
+{"_id":{"$oid":"5a762604bcf27fd277674525"},"message":"Hi","sender":"test","receiver":"samson","date":"2018-02-03T14:43:51.356Z"}
+{"_id":{"$oid":"5a762676bcf27fd277674526"},"message":"Hi test","sender":"samson","receiver":"test","date":"2018-02-03T14:43:59.467Z"}
