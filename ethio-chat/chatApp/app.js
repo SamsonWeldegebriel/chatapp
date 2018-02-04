@@ -8,7 +8,7 @@ var lessMiddleware = require('less-middleware');
 var mongo = require('mongojs');
 var db = mongo('mongodb://s:s@ds215388.mlab.com:15388/mydatabase');
 
-//var group = require('./routes/group');
+var group = require('./routes/group');
 //var chat = require('./routes/chat');
 var index = require('./routes/index');
 var users = require('./routes/users');
@@ -35,7 +35,7 @@ app.use(function(req, res, next) {
 
 app.use('/', index);
 app.use('/users', users);
-//app.use('/groups', group);
+app.use('/groups', group);
 //app.use('/chat', chat);
 
 // catch 404 and forward to error handler
