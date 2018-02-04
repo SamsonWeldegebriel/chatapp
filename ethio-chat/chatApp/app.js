@@ -5,6 +5,8 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var lessMiddleware = require('less-middleware');
+var mongo = require('mongojs');
+var db = mongo('mongodb://s:s@ds215388.mlab.com:15388/mydatabase');
 
 //var group = require('./routes/group');
 //var chat = require('./routes/chat');
@@ -26,6 +28,11 @@ app.use(cookieParser());
 app.use(lessMiddleware(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use(function(req, res, next) {
+  req.db = db;
+  next();
+});
+
 app.use('/', index);
 app.use('/users', users);
 //app.use('/groups', group);
@@ -38,18 +45,8 @@ app.use(function(req, res, next) {
   next(err);
 });
 
- app.use('/', function(req, res,next){
-
-  mongoClient.connect('mongodb://127.0.0.1:27017', (err, db) => {
-    if (err) throw err;
-    var dbo = db.db('ethiochatdb');
-    req.dbo=dbo;
-    console.log("connected...");
-  });
-  
 // error handler
 app.use(function(err, req, res, next) {
-
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
@@ -58,4 +55,7 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
-app.listen(8000, ()=>{console.log("listinig....")})
+
+app.listen(8000, () => {
+  console.log('listinig....');
+});
