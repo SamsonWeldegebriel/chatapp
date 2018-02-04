@@ -34,9 +34,9 @@ app.use(function(req, res, next) {
 });
 
 app.use('/', index);
-app.use('/users', users);
-//app.use('/groups', group);
-//app.use('/chat', chat);
+app.use('/api', users);
+app.use('/groups', group);
+app.use('/chat', chat);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
