@@ -1,3 +1,5 @@
+// https://manage.auth0.com/#/clients/cDJlPPaVj23AkRKFJJ8P3MYjG9ZVjKz4/quickstart
+
 interface AuthConfig {
   clientID: string;
   domain: string;

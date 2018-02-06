@@ -1,4 +1,5 @@
 // author Tigist Damesa ....05/02/2018
+// https://manage.auth0.com/#/clients/cDJlPPaVj23AkRKFJJ8P3MYjG9ZVjKz4/quickstart
 
 import { Injectable } from '@angular/core';
 import { AUTH_CONFIG } from './auth0-variables';
@@ -6,6 +7,7 @@ import { Router } from '@angular/router';
 import * as auth0 from 'auth0-js';
 import { UserService } from '../service/user.service';
 import { Subject } from 'rxjs/Subject';
+
 
 @Injectable()
 export class AuthService {
