@@ -1,9 +1,11 @@
+// author Tigist Damesa ....04/02/2018
+
 var express = require('express');
 var app = express();
 var jwt = require('express-jwt');
 var jwks = require('jwks-rsa');
 
-
+// validate the token
 var jwtCheck = jwt({
   secret: jwks.expressJwtSecret({
       cache: true,
@@ -17,6 +19,7 @@ var jwtCheck = jwt({
 });
 
 app.use(jwtCheck);
+
 
 app.use('/', require('../routes/users'));
 app.listen(8000);

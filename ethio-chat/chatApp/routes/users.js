@@ -3,7 +3,7 @@ var router = express.Router();
 var jwt = require('express-jwt');
 var jwks = require('jwks-rsa');
 
-
+//token validation/authorization
 var jwtCheck = jwt({
   secret: jwks.expressJwtSecret({
       cache: true,
@@ -11,32 +11,18 @@ var jwtCheck = jwt({
       jwksRequestsPerMinute: 5,
       jwksUri: "https://ethiochat.auth0.com/.well-known/jwks.json"
   }),
-  audience: 'http://localhost:8000',
+  audience: 'cDJlPPaVj23AkRKFJJ8P3MYjG9ZVjKz4',
   issuer: "https://ethiochat.auth0.com/",
   algorithms: ['RS256']
 });
 
+console.log(jwtCheck.toString)
 router.get('/authorized', jwtCheck, function (req, res) {
   res.send('Secured Resource');
-});
+})
 
-
-// router.post('/users/login', function(req,res){
-//   const user={
-//     id:1,
-//     username:'test',
-//     email:'tigist@gmail.com'
-//   }
-//   console.log(user);
-//   jwt.sign(user, 'secretkey',function(err,token){
-//     if(err) throw err;
-//     res.json(token);
-//   })
-// })
-
-/* GET users listing. */
 router.get('/users/search/:name?', function(req, res, next) {
-  // TODO checkUser(req)
+  // all users
 
   var query = {};
   if (req.params.name) {
@@ -44,16 +30,17 @@ router.get('/users/search/:name?', function(req, res, next) {
   }
   req.db
     .collection('user')
-    .find(query)
+    .find(query).limit(20)
     .toArray((err, result) => {
       if (err) throw err;
       res.json(result);
-    });
+    }); 
 });
 
-router.get('/users', function(req, res, next) {
-  // TODO checkUser(req)
-  var email = 'samson@gmail.com';
+router.get('/users', jwtCheck, function(req, res, next) {
+  // current user profile
+  console.log(req.user.email);
+  var email = req.user.email;
   req.db.collection('user').findOne({ email: email }, (err, result) => {
     if (err) throw err;
     res.json(result);
@@ -68,10 +55,10 @@ router.post('/users', function(req, res, next) {
     res.json(req.body);
   });
 });
-
-router.put('/users', function(req, res, next) {
+ 
+router.put('/users', jwtCheck,function(req, res, next) {
   var data = req.body;
-  var email = 'samson@gmail.com';
+  var email =  req.user.email;
   req.db.collection('user').update({ email: email }, data, (err, isupdated) => {
     if (err) throw err;
     res.json(req.body);

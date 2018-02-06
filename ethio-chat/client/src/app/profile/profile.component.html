@@ -1,0 +1,25 @@
+
+<form [formGroup]="profileform"class="width" (ngSubmit)="onSubmit()">
+
+  <mat-toolbar class="header">
+    <span>Profile</span>
+  </mat-toolbar>
+  <p>
+      <label>Full Name</label>
+    <mat-form-field class="width">
+      <input matInput placeholder="full name" formControlName="fullName">
+    </mat-form-field>
+
+    <label>Email</label>
+    <mat-form-field class="width">
+      <input matInput placeholder="email@email.com" formControlName="email">
+    </mat-form-field>
+
+    <label>Phone Number</label>
+    <mat-form-field class="width">
+      <input matInput placeholder="123-345-6789" formControlName="phone" [pattern]=pattern>
+    </mat-form-field>
+
+  </p>
+  <button mat-raised-button type="submit" [disabled]="!profileform.valid">Submit</button>
+</form>

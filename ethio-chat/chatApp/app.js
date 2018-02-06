@@ -6,14 +6,18 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var lessMiddleware = require('less-middleware');
 var mongo = require('mongojs');
+var cors = require('cors');
 var db = mongo('mongodb://s:s@ds215388.mlab.com:15388/mydatabase');
 
-var group = require('./routes/group');
+//var group = require('./routes/group');
 //var chat = require('./routes/chat');
 var index = require('./routes/index');
 var users = require('./routes/users');
 
 var app = express();
+
+app.use(cors());
+app.options('*', cors());
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -35,8 +39,8 @@ app.use(function(req, res, next) {
 
 app.use('/', index);
 app.use('/api', users);
-app.use('/groups', group);
-app.use('/chat', chat);
+//app.use('/groups', group);
+//app.use('/chat', chat);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
