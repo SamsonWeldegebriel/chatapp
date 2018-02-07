@@ -8,7 +8,6 @@ import * as auth0 from 'auth0-js';
 import { UserService } from '../service/user.service';
 import { Subject } from 'rxjs/Subject';
 
-
 @Injectable()
 export class AuthService {
   auth0 = new auth0.WebAuth({
@@ -23,7 +22,8 @@ export class AuthService {
   constructor(public router: Router, public userService: UserService) {}
 
   registrationChanged = new Subject<boolean>();
-
+  name;
+  email;
   public login(): void {
     this.auth0.authorize();
   }
@@ -37,10 +37,11 @@ export class AuthService {
           if (user) {
             this.isRegistered = true;
             this.router.navigate(['/home']);
+            console.log(authResult.idTokenPayload.picture);
           } else {
-            const email = authResult.idTokenPayload.email;
-            const name = authResult.idTokenPayload.name;
-            this.router.navigate(['/profile', email, name]);
+            this.email = authResult.idTokenPayload.email;
+            this.name = authResult.idTokenPayload.name;
+            this.router.navigate(['/profile', this.email, this.name]);
           }
         });
       } else if (err) {
@@ -59,6 +60,7 @@ export class AuthService {
     localStorage.setItem('access_token', authResult.accessToken);
     localStorage.setItem('id_token', authResult.idToken);
     localStorage.setItem('name', authResult.idTokenPayload.name);
+    localStorage.setItem('email', authResult.idTokenPayload.email);
     localStorage.setItem('expires_at', expiresAt);
   }
 
@@ -68,6 +70,7 @@ export class AuthService {
     localStorage.removeItem('id_token');
     localStorage.removeItem('expires_at');
     localStorage.removeItem('name');
+    localStorage.removeItem('email');
     this.isRegistered = false;
     // Go back to the home route
     this.router.navigate(['/']);
@@ -75,6 +78,10 @@ export class AuthService {
 
   getName() {
     return localStorage.getItem('name');
+  }
+
+  getEmail() {
+    return localStorage.getItem('email');
   }
 
   isAuthenticated(): boolean {

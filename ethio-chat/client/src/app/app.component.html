@@ -7,7 +7,7 @@
       Log Out
     </button>
     <button mat-button [routerLink]="['users']" *ngIf="isRegistered"> User </button>
-    <button mat-button [routerLink]="['group']" *ngIf="isRegistered"> Group </button>
+    <button mat-button [routerLink]="['groups']" *ngIf="isRegistered"> Group </button>
     <div style="flex-grow: 1"></div>
     <button mat-button [routerLink]="['profile']" *ngIf="isRegistered" >{{auth.getName()}}</button>
 
@@ -15,5 +15,7 @@
 </mat-toolbar>
 
 <main class="container">
+
   <router-outlet></router-outlet>
 </main>
+

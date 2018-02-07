@@ -15,6 +15,7 @@ import { AuthService } from './auth/auth.service';
 import { CallbackComponent } from './callback/callback.component';
 import { ProfileComponent } from './profile/profile.component';
 import { UserService } from './service/user.service';
+import { GroupServiceService} from './service/group-service.service';
 import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatInputModule } from '@angular/material/input';
@@ -22,6 +23,10 @@ import { AuthInterceptor } from './auth.interceptor';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { UserComponent } from './user/user.component';
 import {MatListModule} from '@angular/material/list';
+import { AddComponent } from './add/add.component';
+import {GroupdetailComponent } from './groupdetail/groupdetail.component';
+import { JoinComponent } from './join/join.component';
+import {GroupComponent} from './group/group.component';
 
 
 @NgModule({
@@ -30,7 +35,11 @@ import {MatListModule} from '@angular/material/list';
     HomeComponent,
     CallbackComponent,
     ProfileComponent,
-    UserComponent
+    UserComponent,
+    AddComponent,
+    GroupdetailComponent,
+    JoinComponent,
+    GroupComponent
   ],
   imports: [
     MatFormFieldModule,
@@ -54,7 +63,8 @@ import {MatListModule} from '@angular/material/list';
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,
       multi: true
-    }
+    },
+    GroupServiceService
   ],
   bootstrap: [AppComponent]
 })
