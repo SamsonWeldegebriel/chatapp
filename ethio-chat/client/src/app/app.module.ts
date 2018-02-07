@@ -1,3 +1,5 @@
+import { MaterialModule } from './material.module';
+
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -27,6 +29,9 @@ import { AddComponent } from './add/add.component';
 import {GroupdetailComponent } from './groupdetail/groupdetail.component';
 import { JoinComponent } from './join/join.component';
 import {GroupComponent} from './group/group.component';
+import { ChatComponent } from './chat/chat.component';
+import { ChatService } from './service/chat.service';
+import { SocketService } from './service/socket.service';
 
 
 @NgModule({
@@ -39,9 +44,11 @@ import {GroupComponent} from './group/group.component';
     AddComponent,
     GroupdetailComponent,
     JoinComponent,
-    GroupComponent
+    GroupComponent,
+    ChatComponent
   ],
   imports: [
+    MaterialModule,
     MatFormFieldModule,
     HttpClientModule,
     BrowserModule,
@@ -64,7 +71,9 @@ import {GroupComponent} from './group/group.component';
       useClass: AuthInterceptor,
       multi: true
     },
-    GroupServiceService
+    GroupServiceService,
+    ChatService,
+    SocketService
   ],
   bootstrap: [AppComponent]
 })

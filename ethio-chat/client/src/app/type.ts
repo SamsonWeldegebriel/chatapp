@@ -1,5 +1,6 @@
 export interface DataType {
-  fullName: string;
+  name: string;
   email: string;
+  username:string;
   phone: number;
 }

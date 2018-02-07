@@ -43,8 +43,8 @@ export class ProfileComponent implements OnInit {
       this.userService.getUser().subscribe(user => {
         console.log(user);
         this.profileform.controls.email.setValue(user.email);
-        this.profileform.controls.fullName.setValue(user.fullName);
-        console.log(user.fullName);
+        this.profileform.controls.name.setValue(user.name);
+        console.log(user.name);
         this.profileform.controls.phone.setValue(user.phone);
       });
     }

@@ -1,18 +1,27 @@
-<mat-toolbar color="primary">
-  <mat-toolbar-row>
-    <button mat-button id="qsLoginBtn" *ngIf="!auth.isAuthenticated()" (click)="auth.login()">
-      Log In
-    </button>
-    <button mat-button id="qsLogoutBtn" *ngIf="auth.isAuthenticated()" (click)="auth.logout()">
-      Log Out
-    </button>
-    <button mat-button [routerLink]="['users']" *ngIf="isRegistered"> User </button>
-    <button mat-button [routerLink]="['groups']" *ngIf="isRegistered"> Group </button>
-    <div style="flex-grow: 1"></div>
-    <button mat-button [routerLink]="['profile']" *ngIf="isRegistered" >{{auth.getName()}}</button>
+<div>
+  <mat-toolbar color="primary">
+    <mat-toolbar-row>
+        <span><mat-icon class="example-icon">favorite</mat-icon>{{ title }}</span>
+        <span class="example-spacer"></span>
+        <!-- <mat-icon class="example-icon">favorite</mat-icon>
+        <mat-icon class="example-icon">delete</mat-icon> -->
+        <button mat-button [routerLink]="['']" id="qsLoginBtn" *ngIf="isRegistered">Home</button>
+        <!-- <button mat-button [routerLink]="['groupchat']" id="qsLoginBtn" *ngIf="isRegistered">Groups</button>  -->
+        
+        
+        <button mat-button [routerLink]="['groups']" *ngIf="isRegistered"> Group </button>
+     <div style="flex-grow: 1"></div>
+      <button mat-button [routerLink]="['profile']" *ngIf="isRegistered" >{{auth.getName()}}</button>
 
-  </mat-toolbar-row>
-</mat-toolbar>
+        <button mat-button id="qsLoginBtn" *ngIf="!auth.isAuthenticated()" (click)="auth.login()">
+          Log In
+        </button>
+        <button mat-button id="qsLogoutBtn" *ngIf="auth.isAuthenticated()" (click)="auth.logout()">
+          Log Out
+        </button>
+      </mat-toolbar-row>
+  </mat-toolbar>
+</div>
 
 <main class="container">
 

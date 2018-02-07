@@ -11,7 +11,7 @@ export class UserService {
 
   getAllUsers() {
     return this.http.get<DataType>(
-      `${environment.apiRootUrl}/api/users/search/:name`
+      `${environment.apiRootUrl}/api/users/search/`
     );
   }
   getUser() {

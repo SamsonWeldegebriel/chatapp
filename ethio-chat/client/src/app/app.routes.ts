@@ -7,10 +7,11 @@ import { RouterModule, Routes } from '@angular/router';
 import { GroupdetailComponent } from './groupdetail/groupdetail.component';
 import { JoinComponent } from './join/join.component';
 import { AddComponent } from './add/add.component';
+import { ChatComponent } from './chat/chat.component';
 
 
 export const ROUTES: Routes = [
- { path: '', component: HomeComponent },
+ { path: '', component: ChatComponent },
   { path: 'profile/:email/:name', component: ProfileComponent },
   { path: 'profile', component: ProfileComponent },
   { path: 'users', component: UserComponent },
