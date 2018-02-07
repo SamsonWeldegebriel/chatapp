@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { GroupServiceService } from '../service/group-service.service';
 import { ActivatedRoute } from '@angular/router';
+import { UserService } from '../service/user.service';
+import { AuthService } from '../auth/auth.service';
 
 @Component({
   selector: 'app-join',
@@ -11,7 +13,9 @@ export class JoinComponent implements OnInit {
   name: String;
   constructor(
     private groupservice: GroupServiceService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private userService:UserService,
+    private authService: AuthService
   ) {
     console.log('HIIIIIii');
     this.route.params.subscribe(params => (this.name = params['groupname']));
@@ -21,18 +25,19 @@ export class JoinComponent implements OnInit {
 
   ngOnInit() {}
 
-  joinUsetTotheGroup(username) {
+  joinUsetTotheGroup(groupname) {
     // mock user for test
-    alert('Thanks for join the group');
+    const object = {'username' :  this.authService.getEmail(), 'groupname' : groupname};
 
-    console.log('your Join ' + name + ' group');
-    this.groupservice
-      .joinGroup(name, { uname: 'Join2', status: 'Member' })
-
+    this.userService.addJoinedGroup(object)
       .subscribe(
         res => console.log(res),
         error => console.log(Error),
         () => console.log('Join Done!')
       );
+    alert('Thanks for join the group');
+
+    console.log('your Join ' + name + ' group');
+
   }
 }

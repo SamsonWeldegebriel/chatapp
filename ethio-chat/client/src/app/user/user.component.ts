@@ -9,7 +9,11 @@ import { UserService } from '../service/user.service';
   styleUrls: ['./user.component.css']
 })
 export class UserComponent implements OnInit {
-  constructor(private userService: UserService) {}
+
+  constructor(private userService: UserService) {
+
+
+  }
 
   users;
 

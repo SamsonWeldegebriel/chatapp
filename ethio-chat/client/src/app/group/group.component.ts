@@ -7,6 +7,7 @@ import { FormGroup, FormControl, FormArray, FormBuilder } from '@angular/forms';
 import { OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
 import { ActivatedRoute } from '@angular/router';
 import { AuthService } from '../auth/auth.service';
+import { UserService } from '../service/user.service';
 
 @Component({
   selector: 'app-group',
@@ -23,7 +24,8 @@ export class GroupComponent implements OnInit {
   constructor(
     private groupservice: GroupServiceService,
     private route: ActivatedRoute,
-    private authService: AuthService
+    private authService: AuthService,
+    private userService: UserService
   ) {
     console.log('HIIIIIii');
     // this.route.params.subscribe( params => this.name= params['groupname']) ;
@@ -82,21 +84,23 @@ export class GroupComponent implements OnInit {
 
   // }
 
-  joinUsetTotheGroup(groupName) {
-    // mock user for test
-    alert('Thanks for join the group');
 
-    console.log('your Join ' + groupName + ' group');
-    this.groupservice
-      .joinGroup(groupName, { uname: this.authService.name , status: 'Member' })
+    //
+    joinUsetTotheGroup(groupname) {
+      // user join the group
+      const object = {'username' :  this.authService.getEmail(), 'group' : groupname};
 
-      .subscribe(
-        res => console.log(res),
-        error => console.log(Error),
-        () => console.log('Join Done!')
-      );
-  }
+      this.userService.addJoinedGroup(object)
+        .subscribe(
+          res => console.log(res),
+          error => console.log(Error),
+          () => console.log('Join Done!')
+        );
+      alert('Thanks for join the group');
 
+      console.log('your Join ' + name + ' group');
+
+    }
   addGroupEvent() {
     console.log('add Event');
     this.getAll();

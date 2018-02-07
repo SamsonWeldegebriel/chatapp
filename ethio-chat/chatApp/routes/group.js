@@ -119,20 +119,5 @@ router.put('/:groupname/leave',(req, res, next) => {
                    res.json(joingroup);
                 });
             });
-  
-   router.get('/:user', (req, res, next) => {
-    console.log('getting all groups that user Joined');
-    Group.find({}).exec((err, group)=> {
-       if(err){
-           res.send('Error Occured');
-       }else{
-        groupsUserJoin = group.filter(x=>x.users.uname === user);
-        console.log(group.filter(x=>x.users.uname == user ));
-           res.json(groupsUserJoin);
-         
-       }
-    });
-
-   })
 
 module.exports = router;

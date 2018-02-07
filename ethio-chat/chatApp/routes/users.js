@@ -67,4 +67,30 @@ router.put('/users', jwtCheck,function(req, res, next) {
   });
 });
 
+router.put('/join',(req, res, next) => {
+   
+  req.db.collection('user').update({username : req.body.username},
+             {$addToSet : {group: req.body.group }}, { upsert: true}, (err, joinUser) =>{
+                 if(err){
+                     console.log('error');
+                 }
+               
+                 res.json(joinUser);
+              });
+          });
+         
+         
+     router.get('/groups/:username', function(req, res, next) {
+            // get user group
+            console.log(req.username);
+           
+            req.db.collection('user').find({ username : req.params.username }, (err, result) => {
+              if (err) throw err;
+              console.log('this is result set');
+              console.log(result);
+              res.json(result);
+            });
+          });
+
+    
 module.exports = router;
