@@ -28,7 +28,7 @@ export class ProfileComponent implements OnInit {
     private authService: AuthService
   ) {
     this.profileform = formBuilder.group({
-      fullName: [route.snapshot.paramMap.get('name'), Validators.required],
+      name: [route.snapshot.paramMap.get('name'), Validators.required],
       email: [
         route.snapshot.paramMap.get('email'),
         [Validators.required, Validators.email]

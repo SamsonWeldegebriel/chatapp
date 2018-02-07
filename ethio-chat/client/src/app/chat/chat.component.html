@@ -15,7 +15,7 @@
 
 
 <!-- Private Chat Form -->
-<div class="wrapper" *ngIf="chatOpenned">
+<div class="wrapper" >
 <nav class="nav" id="nav">
   <div class="default-nav">
     <div class="main-nav">
@@ -51,7 +51,7 @@
 
 <!-- List of Members Display  --> 
 <br /><br />
-<div id="userArea" class="row" *ngIf="loggedInMemberUsername">    
+<div id="userArea" class="row">    
   <div class="col-md-4">
     <div class="well">
       <h3>Members List</h3>
@@ -68,18 +68,18 @@
 
     
 <!-- Login area -->
-     <div id="loginform" *ngIf="loggedInMemberUsername == false">    
+     <!-- <div id="loginform" *ngIf="loggedInMemberUsername == false">    
         <p>Please enter your name to continue:</p>
         <mat-card>
             <mat-form-field>
-              <!-- <input matInput placeholder="Enter name"> -->
+              
               <input matInput [(ngModel)]="username" placeholder="Enter name">
             </mat-form-field>  
             <br />    
             <button mat-raised-button (click)="showName()">Chat Now</button>
             <mat-spinner [style.display]="showSpinner ? 'block' : 'none'"></mat-spinner>
           </mat-card>         
-    </div>
+    </div> -->
 
    <br /><br />
 

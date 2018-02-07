@@ -45,17 +45,17 @@ export class ChatComponent implements OnInit, OnDestroy {
     })   
   }
 
-  saveStatus(){
-    this.newChatMessage.message = this.message;
-    this.newChatMessage.sender = this.loggedInMemberUsername;
-    this.newChatMessage.receiver = this.receiverName;
-    this.newChatMessage.status = true;
-    this.chatService.saveChat(this.newChatMessage).subscribe((result) => {
-      this.socketService.emit('send-message', this.newChatMessage);
-      this.message = '';
-      this.newChatMessage.status= false;
-    })   
-  }
+  // saveStatus(){
+  //   this.newChatMessage.message = this.message;
+  //   this.newChatMessage.sender = this.loggedInMemberUsername;
+  //   this.newChatMessage.receiver = this.receiverName;
+  //   this.newChatMessage.status = true;
+  //   this.chatService.saveChat(this.newChatMessage).subscribe((result) => {
+  //     this.socketService.emit('send-message', this.newChatMessage);
+  //     this.message = '';
+  //     this.newChatMessage.status= false;
+  //   })   
+  // }
 
   /*
      sendMessage(){
@@ -112,7 +112,7 @@ export class ChatComponent implements OnInit, OnDestroy {
   receiverName: string ='';
   loggedInMember: {};
   openChat(selectedMember){
-    this.saveStatus();
+    // this.saveStatus();
     this.chatOpenned = true;
     this.loggedInMember = selectedMember;
     this.receiverName = selectedMember.username;
