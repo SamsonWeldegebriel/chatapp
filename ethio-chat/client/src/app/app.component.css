@@ -1,0 +1,23 @@
+.example-icon {
+    padding: 0 14px;
+  }
+  
+  .example-spacer {
+    flex: 1 1 auto;
+  }
+ 
+
+/* Users List */
+
+i {  vertical-align: middle; }
+.table-users tbody tr:hover {
+	cursor: pointer;
+	background-color: #eee;
+}
+.nav-user-photo {
+     vertical-align: middle;
+}
+.user_panel {
+    width: 50%;
+}
+

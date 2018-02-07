@@ -28,7 +28,7 @@ export class ProfileComponent implements OnInit {
     private authService: AuthService
   ) {
     this.profileform = formBuilder.group({
-      fullName: [route.snapshot.paramMap.get('name'), Validators.required],
+      name: [route.snapshot.paramMap.get('name'), Validators.required],
       email: [
         route.snapshot.paramMap.get('email'),
         [Validators.required, Validators.email]
@@ -43,8 +43,8 @@ export class ProfileComponent implements OnInit {
       this.userService.getUser().subscribe(user => {
         console.log(user);
         this.profileform.controls.email.setValue(user.email);
-        this.profileform.controls.fullName.setValue(user.fullName);
-        console.log(user.fullName);
+        this.profileform.controls.name.setValue(user.name);
+        console.log(user.name);
         this.profileform.controls.phone.setValue(user.phone);
       });
     }
