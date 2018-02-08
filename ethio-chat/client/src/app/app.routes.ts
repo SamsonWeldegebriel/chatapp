@@ -8,6 +8,7 @@ import { GroupdetailComponent } from './groupdetail/groupdetail.component';
 import { JoinComponent } from './join/join.component';
 import { AddComponent } from './add/add.component';
 import { ChatComponent } from './chat/chat.component';
+import { GroupchatComponent } from './groupchat/groupchat.component';
 
 
 export const ROUTES: Routes = [
@@ -17,6 +18,8 @@ export const ROUTES: Routes = [
   { path: 'users', component: UserComponent },
   { path: 'callback', component: CallbackComponent },
   { path: 'groups', component: GroupComponent },
+  { path: 'groups/add', component: AddComponent },
+  { path: 'groups/chat/:gname', component: GroupchatComponent },
      { path: 'groups/:groupname', component: GroupdetailComponent},
      { path: 'groups/:groupname/join', component: JoinComponent},
      { path: 'groups/add', component: AddComponent},

@@ -1,17 +1,18 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ChatService } from '../service/chat.service';
 import { SocketService } from '../service/socket.service';
-import { UserService } from '../service/user.service';
+//import { UserService } from '../service/user.service';
+import { GroupServiceService } from '../service/group-service.service';
 import { AuthService } from '../auth/auth.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
-  selector: 'app-chat',
-  templateUrl: './chat.component.html',
-  styleUrls: ['./chat.component.css']
+  selector: 'app-groupchat',
+  templateUrl: './groupchat.component.html',
+  styleUrls: ['./groupchat.component.css']
 })
-export class ChatComponent implements OnInit, OnDestroy {
+export class GroupchatComponent implements OnInit {
 
- 
   connection;
   message;
 
@@ -24,18 +25,22 @@ export class ChatComponent implements OnInit, OnDestroy {
     status: false
   };
   chats = [];
-  users;
+  groups;
  
   filteredChats = [];
 
-  constructor(private chatService: ChatService, private authService: AuthService, private socketService: SocketService, private userService: UserService) { 
-    //this.getChats();
-    this.userService.getAllUsers()
-      .subscribe(res =>{this.users = res;});
+  constructor(private chatService: ChatService, private authService : AuthService, private  router: ActivatedRoute,   private socketService: SocketService, private groupService: GroupServiceService) { 
+    this.getChats();
+    this.groupService.getAllGroup()
+      .subscribe(res => this.groups = res);
 
-      this.loggedInMemberUsername = this.authService.getName();       
-      this.getChatsByLoggedInUser(this.authService.getName());
+      this.loggedInMemberUsername = this.authService.getName();
+           
+      router.params.subscribe(params => {this.receiverName = params['gname']}) 
       
+      this.newChatMessage.receiver = this.receiverName;
+      
+
   }
 
 
@@ -48,18 +53,6 @@ export class ChatComponent implements OnInit, OnDestroy {
       this.message = '';
     })   
   }
-
-  // saveStatus(){
-  //   this.newChatMessage.message = this.message;
-  //   this.newChatMessage.sender = this.loggedInMemberUsername;
-  //   this.newChatMessage.receiver = this.receiverName;
-  //   this.newChatMessage.status = true;
-  //   this.chatService.saveChat(this.newChatMessage).subscribe((result) => {
-  //     this.socketService.emit('send-message', this.newChatMessage);
-  //     this.message = '';
-  //     this.newChatMessage.status= false;
-  //   })   
-  // }
 
   /*
      sendMessage(){
@@ -74,7 +67,6 @@ export class ChatComponent implements OnInit, OnDestroy {
   getChats(){
     this.chatService.getAllChats()
         .subscribe(res => this.chats = res);
-        
   }
 
   getChatsByLoggedInUser(loginName){
@@ -99,7 +91,7 @@ export class ChatComponent implements OnInit, OnDestroy {
 
   
   username: string = '';
-  loggedInMemberUsername: string = '';
+  loggedInMemberUsername: string;
   
   showSpinner: boolean = false;
 
@@ -107,8 +99,8 @@ export class ChatComponent implements OnInit, OnDestroy {
     this.showSpinner = true;
 
     setTimeout(() => {
-      this.loggedInMemberUsername = this.username; 
-      
+      this.loggedInMemberUsername = this.username;      
+      this.getChatsByLoggedInUser(this.loggedInMemberUsername);
       this.showSpinner = false;
     }, 2000);
   }
@@ -117,17 +109,20 @@ export class ChatComponent implements OnInit, OnDestroy {
   receiverName: string ='';
   loggedInMember: {};
   openChat(selectedMember){
-    // this.saveStatus();
     this.chatOpenned = true;
     this.loggedInMember = selectedMember;
-    this.receiverName = selectedMember.name;
+    //this.receiverName = selectedMember.username;
     this.filteredChats = //this.chats.filter(e => e.sender == this.receiverName ||  e.receiver == this.receiverName)//
     this.filterChat(this.chats);
     //console.log('filteres ', this.filteredChats);
   }
 
   filterChat(data){
-    return data.filter(e => e.sender == this.receiverName ||  e.receiver == this.receiverName)
+    console.log("Receiver: " + console.log(this.receiverName));
+    return data.filter(e => e.receiver == this.receiverName)
   }
+
+
+
 
 }

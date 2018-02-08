@@ -15,7 +15,7 @@
 
 
 <!-- Private Chat Form -->
-<div class="wrapper" >
+<div class="wrapper" *ngIf="chatOpenned">
 <nav class="nav" id="nav">
   <div class="default-nav">
     <div class="main-nav">
@@ -51,7 +51,7 @@
 
 <!-- List of Members Display  --> 
 <br /><br />
-<div id="userArea" class="row">    
+<div id="userArea" class="row" *ngIf="loggedInMemberUsername">    
   <div class="col-md-4">
     <div class="well">
       <h3>Members List</h3>

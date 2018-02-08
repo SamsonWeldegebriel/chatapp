@@ -11,6 +11,8 @@
         
         <button mat-button [routerLink]="['groups']" *ngIf="isRegistered"> Group </button>
      <div style="flex-grow: 1"></div>
+     <button mat-button [routerLink]="['groups', 'add']" *ngIf="isRegistered">Add Group </button>
+     
       <button mat-button [routerLink]="['profile']" *ngIf="isRegistered" >{{auth.getName()}}</button>
 
         <button mat-button id="qsLoginBtn" *ngIf="!auth.isAuthenticated()" (click)="auth.login()">

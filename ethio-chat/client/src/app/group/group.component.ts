@@ -49,10 +49,10 @@ export class GroupComponent implements OnInit {
     );
   }
 
-  delete() {
+  delete(groupname) {
     // let b = confirm('Are you sure?');
     // if(b){
-    this.groupservice.delete(this.name).subscribe(
+    this.groupservice.delete(groupname).subscribe(
       res => {
         this.groups = res;
         console.log(res);

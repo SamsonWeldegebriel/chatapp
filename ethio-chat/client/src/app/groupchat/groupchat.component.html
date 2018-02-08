@@ -1,0 +1,38 @@
+<div id="userArea" class="row" *ngIf="loggedInMemberUsername">    
+  <div class="col-md-4">
+    <div class="well">
+      <h3>Your Groups List</h3>
+      <ul class="list-group" id="users">
+        <li *ngFor="let user of users" style="list-style: none">
+          <button mat-raised-button (click)="openGroupChat(user)" style="width: 200px">{{user.name}}</button>
+          <!-- <input type="submit" (click)="openChat()" [(ngModel)]="memberName" style="width: 200px" value="{{user.name}}" /> -->
+          <br />
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div id="wrapper"> 
+    <div id="menu">
+        <p class="welcome">Welcome to <b>{{ newChatMessage.receiver }}</b></p>
+        <p class="logout"><a id="exit" href="#">Exit Chat</a></p>
+        <div style="clear:both"></div>
+    </div>    
+    <div id="chatbox">
+      <div *ngFor="let chat of chats">
+        <b>{{chat.sender}}: </b>{{chat.message}}<br/>
+          <i>sent at:{{chat.date}}</i>                 
+      </div>
+    </div>
+     
+    <!-- <form name="message" action=""> -->
+        <!-- <input name="usermsg" type="text" id="usermsg"  />
+         -->
+        <textarea class="input" id="input" [(ngModel)]="message" placeholder="Type a message" size="63"></textarea>
+        <input name="submitmsg" type="submit"  id="submitmsg" value="Send" (click)="sendMessage()"/>
+  <!-- <div class="send" id="send"  (click)="sendMessage()"></div> -->
+    <!-- </form> -->
+  </div>
+
+  

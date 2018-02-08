@@ -32,6 +32,7 @@ import {GroupComponent} from './group/group.component';
 import { ChatComponent } from './chat/chat.component';
 import { ChatService } from './service/chat.service';
 import { SocketService } from './service/socket.service';
+import { GroupchatComponent } from './groupchat/groupchat.component';
 
 
 @NgModule({
@@ -45,7 +46,8 @@ import { SocketService } from './service/socket.service';
     GroupdetailComponent,
     JoinComponent,
     GroupComponent,
-    ChatComponent
+    ChatComponent,
+    GroupchatComponent
   ],
   imports: [
     MaterialModule,
