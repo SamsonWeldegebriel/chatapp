@@ -9,40 +9,42 @@ import { UserService } from '../service/user.service';
   styleUrls: ['./chat.component.css']
 })
 export class ChatComponent implements OnInit, OnDestroy {
-
- 
   connection;
   message;
+  username = '';
+  loggedInMemberUsername = '';
+  showSpinner = false;
+  chatOpenned = false;
+  receiverName = '';
+  loggedInMember: {};
 
-  //new chat message object
+  // new chat message object
   newChatMessage = {
-    message : "",
-    sender : "",
-    receiver : "",
-    date : new Date(),
+    message: '',
+    sender: '',
+    receiver: '',
+    date: new Date(),
     status: false
   };
   chats = [];
   users;
- 
+
   filteredChats = [];
 
-  constructor(private chatService: ChatService, private socketService: SocketService, private userService: UserService) { 
-    //this.getChats();
-    this.userService.getAllUsers()
-      .subscribe(res =>{this.users = res; console.log(res.name)});
-      
-  }
+  constructor(
+    private chatService: ChatService,
+    private socketService: SocketService,
+    private userService: UserService
+  ) {}
 
-
-  sendMessage(){
+  sendMessage() {
     this.newChatMessage.message = this.message;
     this.newChatMessage.sender = this.loggedInMemberUsername;
     this.newChatMessage.receiver = this.receiverName;
-    this.chatService.saveChat(this.newChatMessage).subscribe((result) => {
+    this.chatService.saveChat(this.newChatMessage).subscribe(result => {
       this.socketService.emit('send-message', this.newChatMessage);
       this.message = '';
-    })   
+    });
   }
 
   // saveStatus(){
@@ -54,7 +56,7 @@ export class ChatComponent implements OnInit, OnDestroy {
   //     this.socketService.emit('send-message', this.newChatMessage);
   //     this.message = '';
   //     this.newChatMessage.status= false;
-  //   })   
+  //   })
   // }
 
   /*
@@ -67,62 +69,55 @@ export class ChatComponent implements OnInit, OnDestroy {
   }
   */
 
-  getChats(){
-    this.chatService.getAllChats()
-        .subscribe(res => this.chats = res);
+  getChats() {
+    this.chatService.getAllChats().subscribe(res => (this.chats = res));
   }
 
-  getChatsByLoggedInUser(loginName){
-    this.chatService.getChatByUser(this.loggedInMemberUsername)
-        .subscribe(res => this.chats = res);
+  getChatsByLoggedInUser(loginName) {
+    this.chatService
+      .getChatByUser(this.loggedInMemberUsername)
+      .subscribe(res => (this.chats = res));
   }
 
   ngOnInit() {
-    //this.connection =this.chatService.getMessages().subscribe(message => this.messages.push(message));
+    // this.connection =this.chatService.getMessages().subscribe(message => this.messages.push(message));
     this.chats = new Array();
     this.filteredChats = new Array();
-    this.socketService.on('message-received', (data) => {
+    this.socketService.on('message-received', data => {
       this.chats.push(data);
       this.filteredChats = this.filterChat(this.chats);
     });
+    this.userService.getUsers('').subscribe(result => {
+      this.users = result;
+    });
   }
 
-  ngOnDestroy(){
-   // this.connection.unsubscribe();
+  ngOnDestroy() {
+    // this.connection.unsubscribe();
   }
-
-
-  
-  username: string = '';
-  loggedInMemberUsername: string = '';
-  
-  showSpinner: boolean = false;
 
   showName() {
     this.showSpinner = true;
 
     setTimeout(() => {
-      this.loggedInMemberUsername = this.username;      
+      this.loggedInMemberUsername = this.username;
       this.getChatsByLoggedInUser(this.loggedInMemberUsername);
       this.showSpinner = false;
     }, 2000);
   }
-
-  chatOpenned: boolean = false;
-  receiverName: string ='';
-  loggedInMember: {};
-  openChat(selectedMember){
+  openChat(selectedMember) {
     // this.saveStatus();
     this.chatOpenned = true;
     this.loggedInMember = selectedMember;
     this.receiverName = selectedMember.username;
-    this.filteredChats = //this.chats.filter(e => e.sender == this.receiverName ||  e.receiver == this.receiverName)//
-    this.filterChat(this.chats);
-    //console.log('filteres ', this.filteredChats);
+    this.filteredChats = this.filterChat(this.chats);
+    // this.chats.filter(e => e.sender == this.receiverName ||  e.receiver == this.receiverName)//
+    // console.log('filteres ', this.filteredChats);
   }
 
-  filterChat(data){
-    return data.filter(e => e.sender == this.receiverName ||  e.receiver == this.receiverName)
+  filterChat(data) {
+    return data.filter(
+      e => e.sender === this.receiverName || e.receiver === this.receiverName
+    );
   }
-
 }

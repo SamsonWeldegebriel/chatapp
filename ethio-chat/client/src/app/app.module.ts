@@ -17,22 +17,22 @@ import { AuthService } from './auth/auth.service';
 import { CallbackComponent } from './callback/callback.component';
 import { ProfileComponent } from './profile/profile.component';
 import { UserService } from './service/user.service';
-import { GroupServiceService} from './service/group-service.service';
+import { GroupServiceService } from './service/group-service.service';
 import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatInputModule } from '@angular/material/input';
 import { AuthInterceptor } from './auth.interceptor';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { UserComponent } from './user/user.component';
-import {MatListModule} from '@angular/material/list';
+import { MatListModule } from '@angular/material/list';
 import { AddComponent } from './add/add.component';
-import {GroupdetailComponent } from './groupdetail/groupdetail.component';
+import { GroupdetailComponent } from './groupdetail/groupdetail.component';
 import { JoinComponent } from './join/join.component';
-import {GroupComponent} from './group/group.component';
+import { GroupComponent } from './group/group.component';
 import { ChatComponent } from './chat/chat.component';
 import { ChatService } from './service/chat.service';
 import { SocketService } from './service/socket.service';
-
+import { UsergroupsComponent } from './usergroups/usergroups.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +45,8 @@ import { SocketService } from './service/socket.service';
     GroupdetailComponent,
     JoinComponent,
     GroupComponent,
-    ChatComponent
+    ChatComponent,
+    UsergroupsComponent
   ],
   imports: [
     MaterialModule,

@@ -11,7 +11,7 @@ export class UserService {
 
   getAllUsers() {
     return this.http.get<DataType>(
-      `${environment.apiRootUrl}/api/users/search/`
+      `${environment.apiRootUrl}/api/users/search/:name`
     );
   }
   getUser() {
@@ -29,4 +29,11 @@ export class UserService {
   getUsers(name) {
     return this.http.get(`${environment.apiRootUrl}/api/users/search/${name}`);
   }
+  addJoinedGroup(obj) {
+     return this.http.put(`${environment.apiRootUrl}/api/join`, obj);
+  }
+
+  getUserGroup() {
+    return this.http.get<string[]>(`${environment.apiRootUrl}/api/user/groups`);
+ }
 }

@@ -54,9 +54,4 @@ export class GroupdetailComponent implements OnInit, OnDestroy {
 
     console.log(this.group);
   }
-
-  MemberGroup() {
-     this.groupservice.getUserMemberGroup(this.loginUser);
-
-  }
 }

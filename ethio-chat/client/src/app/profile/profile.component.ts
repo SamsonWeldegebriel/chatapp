@@ -19,7 +19,7 @@ import { UserService } from '../service/user.service';
 })
 export class ProfileComponent implements OnInit {
   public profileform: FormGroup;
-  pattern = '^(\([0-9]{3}\) |[0-9]{3}-)[0-9]{3}-[0-9]{4}$';
+  pattern = '^(([0-9]{3}) |[0-9]{3}-)[0-9]{3}-[0-9]{4}$';
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
@@ -33,7 +33,8 @@ export class ProfileComponent implements OnInit {
         route.snapshot.paramMap.get('email'),
         [Validators.required, Validators.email]
       ],
-      phone: ['', Validators.pattern(this.pattern)]
+      phone: ['', Validators.pattern(this.pattern)],
+      username: route.snapshot.paramMap.get('email')
     });
   }
 
@@ -52,13 +53,15 @@ export class ProfileComponent implements OnInit {
 
   // checks if user exists or new and create or updates profile
   onSubmit() {
+    const profile = this.profileform.value;
+    profile.group = [];
     if (this.route.snapshot.paramMap.get('name')) {
-      this.userService.createUser(this.profileform.value).subscribe(result => {
+      this.userService.createUser(profile).subscribe(result => {
         this.authService.isRegistered = true;
         this.router.navigate(['/home']);
       });
     } else {
-      this.userService.updateUser(this.profileform.value).subscribe(result => {
+      this.userService.updateUser(profile).subscribe(result => {
         this.router.navigate(['/home']);
       });
     }

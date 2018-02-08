@@ -51,19 +51,16 @@ export class GroupComponent implements OnInit {
     );
   }
 
-  delete() {
-    // let b = confirm('Are you sure?');
-    // if(b){
-    this.groupservice.delete(this.name).subscribe(
+  delete(name) {
+    console.log('this is delete group comp' + name);
+    this.groupservice.delete(name).subscribe(
       res => {
-        this.groups = res;
         console.log(res);
       },
       error => console.log(error),
       () => console.log('Done!')
     );
 
-    //  }
   }
 
   member(groupname) {
@@ -77,30 +74,21 @@ export class GroupComponent implements OnInit {
     );
   }
 
-  // isMember(user, groupname){
-  //    this.member(groupname);
-  //   this.members.array.forEach(element => {if(element.uname===user.uname) return true})
-  //   return false;
+  joinUsetTotheGroup(groupname) {
+    // user join the group
+    const object = { group: groupname };
 
-  // }
+    this.userService.addJoinedGroup(object).subscribe(
+      res => console.log(res),
+      error => console.log(Error),
+      () => {
+        console.log('Join Done!');
+        alert('Thanks for join the group');
+      }
+    );
 
-
-    //
-    joinUsetTotheGroup(groupname) {
-      // user join the group
-      const object = {'username' :  this.authService.getEmail(), 'group' : groupname};
-
-      this.userService.addJoinedGroup(object)
-        .subscribe(
-          res => console.log(res),
-          error => console.log(Error),
-          () => console.log('Join Done!')
-        );
-      alert('Thanks for join the group');
-
-      console.log('your Join ' + name + ' group');
-
-    }
+    console.log('your Join ' + name + ' group');
+  }
   addGroupEvent() {
     console.log('add Event');
     this.getAll();

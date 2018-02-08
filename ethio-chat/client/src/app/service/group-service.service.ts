@@ -35,12 +35,7 @@ export class GroupServiceService {
   }
 
   delete(name) {
-    console.log('User Join the group');
-    return this.http.delete('http://localhost:8000/groups/:' + name);
-  }
-
-  getUserMemberGroup(user) {
-    console.log('User Join the group');
-    return this.http.get('http://localhost:8000/groups/:' + user);
+    console.log('User Deleted the group');
+    return this.http.delete('http://localhost:8000/groups/' + name);
   }
 }

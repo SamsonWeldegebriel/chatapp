@@ -10,8 +10,7 @@ import 'rxjs/operators/map';
   styleUrls: ['./usergroups.component.css']
 })
 export class UsergroupsComponent implements OnInit {
-  user;
-  group = [];
+  groups = [];
   userGroupForm: FormGroup;
   constructor(
     private userService: UserService,
@@ -23,9 +22,9 @@ export class UsergroupsComponent implements OnInit {
   }
 
   getGroups() {
-    this.userService.getUserGroup(this.authService.getEmail).subscribe(
+    this.userService.getUserGroup().subscribe(
       res => {
-        this.user = res;
+        this.groups = res;
         console.log('respoce', res);
       },
       error => console.log(error),
