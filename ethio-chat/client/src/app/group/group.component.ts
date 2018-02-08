@@ -5,8 +5,10 @@ import { Component, OnInit } from '@angular/core';
 import { Validators } from '@angular/forms';
 import { FormGroup, FormControl, FormArray, FormBuilder } from '@angular/forms';
 import { OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
-import { ActivatedRoute } from '@angular/router';
 import { AuthService } from '../auth/auth.service';
+import { UserService } from '../service/user.service';
+import { Router, ActivatedRoute } from '@angular/router';
+
 
 @Component({
   selector: 'app-group',
@@ -23,7 +25,8 @@ export class GroupComponent implements OnInit {
   constructor(
     private groupservice: GroupServiceService,
     private route: ActivatedRoute,
-    private authService: AuthService
+    private authService: AuthService,
+    private userService: UserService
   ) {
     console.log('HIIIIIii');
     // this.route.params.subscribe( params => this.name= params['groupname']) ;
@@ -49,19 +52,16 @@ export class GroupComponent implements OnInit {
     );
   }
 
-  delete(groupname) {
-    // let b = confirm('Are you sure?');
-    // if(b){
-    this.groupservice.delete(groupname).subscribe(
+  delete(name) {
+    console.log('this is delete group comp' + name);
+    this.groupservice.delete(name).subscribe(
       res => {
-        this.groups = res;
         console.log(res);
       },
       error => console.log(error),
       () => console.log('Done!')
     );
 
-    //  }
   }
 
   member(groupname) {
@@ -75,28 +75,21 @@ export class GroupComponent implements OnInit {
     );
   }
 
-  // isMember(user, groupname){
-  //    this.member(groupname);
-  //   this.members.array.forEach(element => {if(element.uname===user.uname) return true})
-  //   return false;
+  joinUsetTotheGroup(groupname) {
+    // user join the group
+    const object = { group: groupname };
 
-  // }
+    this.userService.addJoinedGroup(object).subscribe(
+      res => console.log(res),
+      error => console.log(Error),
+      () => {
+        console.log('Join Done!');
+        alert('Thanks for join the group');
+      }
+    );
 
-  joinUsetTotheGroup(groupName) {
-    // mock user for test
-    alert('Thanks for join the group');
-
-    console.log('your Join ' + groupName + ' group');
-    this.groupservice
-      .joinGroup(groupName, { uname: this.authService.name , status: 'Member' })
-
-      .subscribe(
-        res => console.log(res),
-        error => console.log(Error),
-        () => console.log('Join Done!')
-      );
+    console.log('your Join ' + name + ' group');
   }
-
   addGroupEvent() {
     console.log('add Event');
     this.getAll();

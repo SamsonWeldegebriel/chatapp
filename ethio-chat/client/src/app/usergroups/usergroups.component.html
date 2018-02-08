@@ -1,0 +1,11 @@
+<h1>Header</h1>
+<form *ngIf="groups">
+    <mat-toolbar >Group List</mat-toolbar>
+        <mat-list role="list" *ngFor="let grp of groups">
+            <mat-list-item role="listitem">{{grp}}
+               <button mat-button>Leave</button>
+               <button mat-button [routerLink]="[grp]">Detail</button>
+            </mat-list-item>
+          </mat-list>
+
+</form>

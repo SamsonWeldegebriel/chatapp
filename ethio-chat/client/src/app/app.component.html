@@ -7,8 +7,8 @@
         <mat-icon class="example-icon">delete</mat-icon> -->
         <button mat-button [routerLink]="['']" id="qsLoginBtn" *ngIf="isRegistered">Home</button>
         <!-- <button mat-button [routerLink]="['groupchat']" id="qsLoginBtn" *ngIf="isRegistered">Groups</button>  -->
-        
-        
+
+
         <button mat-button [routerLink]="['groups']" *ngIf="isRegistered"> Group </button>
      <div style="flex-grow: 1"></div>
      <button mat-button [routerLink]="['groups', 'add']" *ngIf="isRegistered">Add Group </button>
@@ -21,6 +21,8 @@
         <button mat-button id="qsLogoutBtn" *ngIf="auth.isAuthenticated()" (click)="auth.logout()">
           Log Out
         </button>
+        <button mat-button [routerLink]="['user', 'group']"  *ngIf="isRegistered">Your Group </button>
+
       </mat-toolbar-row>
   </mat-toolbar>
 </div>
