@@ -121,8 +121,8 @@ export class ChatComponent implements OnInit, OnDestroy {
     this.chatOpenned = true;
     this.loggedInMember = selectedMember;
     this.receiverName = selectedMember.name;
-    this.filteredChats = //this.chats.filter(e => e.sender == this.receiverName ||  e.receiver == this.receiverName)//
-    this.filterChat(this.chats);
+    this.filteredChats = this.filterChat(this.chats);
+    //this.chats.filter(e => e.sender == this.receiverName ||  e.receiver == this.receiverName)//
     //console.log('filteres ', this.filteredChats);
   }
 
