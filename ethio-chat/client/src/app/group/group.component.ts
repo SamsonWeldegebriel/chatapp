@@ -5,9 +5,10 @@ import { Component, OnInit } from '@angular/core';
 import { Validators } from '@angular/forms';
 import { FormGroup, FormControl, FormArray, FormBuilder } from '@angular/forms';
 import { OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
-import { ActivatedRoute } from '@angular/router';
 import { AuthService } from '../auth/auth.service';
 import { UserService } from '../service/user.service';
+import { Router, ActivatedRoute } from '@angular/router';
+
 
 @Component({
   selector: 'app-group',
@@ -51,16 +52,9 @@ export class GroupComponent implements OnInit {
     );
   }
 
-<<<<<<< HEAD
   delete(name) {
     console.log('this is delete group comp' + name);
     this.groupservice.delete(name).subscribe(
-=======
-  delete(groupname) {
-    // let b = confirm('Are you sure?');
-    // if(b){
-    this.groupservice.delete(groupname).subscribe(
->>>>>>> 3fb483ace5c3637548ddadcb6b8e48222bf4582e
       res => {
         console.log(res);
       },
