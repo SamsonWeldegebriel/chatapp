@@ -32,7 +32,12 @@ import { GroupComponent } from './group/group.component';
 import { ChatComponent } from './chat/chat.component';
 import { ChatService } from './service/chat.service';
 import { SocketService } from './service/socket.service';
+<<<<<<< HEAD
 import { UsergroupsComponent } from './usergroups/usergroups.component';
+=======
+import { GroupchatComponent } from './groupchat/groupchat.component';
+
+>>>>>>> 3fb483ace5c3637548ddadcb6b8e48222bf4582e
 
 @NgModule({
   declarations: [
@@ -46,7 +51,11 @@ import { UsergroupsComponent } from './usergroups/usergroups.component';
     JoinComponent,
     GroupComponent,
     ChatComponent,
+<<<<<<< HEAD
     UsergroupsComponent
+=======
+    GroupchatComponent
+>>>>>>> 3fb483ace5c3637548ddadcb6b8e48222bf4582e
   ],
   imports: [
     MaterialModule,

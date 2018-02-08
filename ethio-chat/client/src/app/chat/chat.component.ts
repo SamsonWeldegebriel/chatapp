@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ChatService } from '../service/chat.service';
 import { SocketService } from '../service/socket.service';
 import { UserService } from '../service/user.service';
+import { AuthService } from '../auth/auth.service';
 
 @Component({
   selector: 'app-chat',
@@ -30,12 +31,20 @@ export class ChatComponent implements OnInit, OnDestroy {
   users;
 
   filteredChats = [];
-
   constructor(
     private chatService: ChatService,
+    private authService: AuthService,
     private socketService: SocketService,
     private userService: UserService
-  ) {}
+  ) {
+    // this.getChats();
+    this.userService.getAllUsers().subscribe(res => {
+      this.users = res;
+    });
+
+    this.loggedInMemberUsername = this.authService.getName();
+    this.getChatsByLoggedInUser(this.authService.getName());
+  }
 
   sendMessage() {
     this.newChatMessage.message = this.message;
@@ -109,9 +118,8 @@ export class ChatComponent implements OnInit, OnDestroy {
     // this.saveStatus();
     this.chatOpenned = true;
     this.loggedInMember = selectedMember;
-    this.receiverName = selectedMember.username;
-    this.filteredChats = this.filterChat(this.chats);
-    // this.chats.filter(e => e.sender == this.receiverName ||  e.receiver == this.receiverName)//
+    this.receiverName = selectedMember.name;
+    this.filteredChats = this.filterChat(this.chats); // this.chats.filter(e => e.sender == this.receiverName ||  e.receiver == this.receiverName)//
     // console.log('filteres ', this.filteredChats);
   }
 

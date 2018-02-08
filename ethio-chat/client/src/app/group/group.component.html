@@ -2,13 +2,19 @@
 <form>
     <mat-toolbar >Group List</mat-toolbar>
         <mat-list role="list" *ngFor="let grp of groups">
-            <mat-list-item role="listitem">{{grp.gname}}
+            <mat-list-item role="listitem"><a [routerLink]= "['chat',grp.gname]">{{grp.gname}}</a>
                <button mat-button (click) ='joinUsetTotheGroup(grp.gname)'>Join</button>
                <button mat-button  >Leave</button>
                <button mat-button [routerLink]="[grp.gname]">Detail</button>
+<<<<<<< HEAD
                <button mat-button (click) ="delete(grp.gname)">Delete</button>
+=======
+               <button mat-button (clik) ="delete(grp.gname)">Delete</button>
+>>>>>>> 3fb483ace5c3637548ddadcb6b8e48222bf4582e
             </mat-list-item>
       </mat-list>
-      <app-add (addGroup)="addGroupEvent()"></app-add>
+     
 
 </form>
+<router-outlet></router-outlet>
+ 

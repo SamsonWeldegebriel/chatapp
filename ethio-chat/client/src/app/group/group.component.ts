@@ -51,9 +51,16 @@ export class GroupComponent implements OnInit {
     );
   }
 
+<<<<<<< HEAD
   delete(name) {
     console.log('this is delete group comp' + name);
     this.groupservice.delete(name).subscribe(
+=======
+  delete(groupname) {
+    // let b = confirm('Are you sure?');
+    // if(b){
+    this.groupservice.delete(groupname).subscribe(
+>>>>>>> 3fb483ace5c3637548ddadcb6b8e48222bf4582e
       res => {
         console.log(res);
       },
