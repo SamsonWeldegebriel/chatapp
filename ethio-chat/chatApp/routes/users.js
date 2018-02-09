@@ -79,7 +79,7 @@ router.get('/user/groups', jwtCheck, function(req, res, next) {
     .findOne({ username: req.user.email }, (err, result) => {
       if (err) throw err;
       console.log('this is result set');
-      console.log(result.group);
+      console.log(result);
       res.send(result.group);
     });
 });
