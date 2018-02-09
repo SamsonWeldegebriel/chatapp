@@ -1,31 +1,20 @@
-<!-- <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-
-<form [formGroup]= "addGroupForm">
-  <a>Create Group</a>
-     <label>Name</label>
-    <p><input type ='text' formControlName="gname" name="gname"  [(ngModel)]='group.gname'/></p>
-    <p *ngIf="addGroupForm.controls['gname'].hasError('required')" class="alert alert-danger">Required</p>
- <div class="form-group">
-   <label>About Group </label>
-   <p><input type ='text' formControlName="description"  name="description" [(ngModel)]="group.description" class="form-control" /></p>
-   <p *ngIf="addGroupForm.controls['description'].hasError('required')" class="alert alert-danger">Required</p>
-</div>
-<button (click)="saveGroup()">Save</button>
-
-
-</form  [formGroup]= "addGroupForm"> -->
 <h1>Create Group</h1>
-<form [formGroup]= "addGroupForm">
+
+<form [formGroup]= "addGroupForm" (ngSubmit)='saveGroup()' >
+<div>
 <mat-form-field>
   <label> Name </label>
   <input matInput  formControlName='gname' name="gname"/>
 </mat-form-field>
-
+</div>
+<div>
 <mat-form-field>
     <label> ABout </label>
   <textarea matInput  formControlName="description"  name="description"  ></textarea>
 </mat-form-field>
-  <button mat-button (click)="saveGroup()">Save</button>
+</div>
+<div>
+  <button mat-button>Save</button>
+</div>
+
 </form>
-
-

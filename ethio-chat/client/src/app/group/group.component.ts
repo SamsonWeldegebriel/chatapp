@@ -56,6 +56,7 @@ export class GroupComponent implements OnInit {
     console.log('this is delete group comp' + name);
     this.groupservice.delete(name).subscribe(
       res => {
+        this.getAll();
         console.log(res);
       },
       error => console.log(error),

@@ -1,4 +1,3 @@
-import { HomeComponent } from './home/home.component';
 import { ProfileComponent } from './profile/profile.component';
 import { CallbackComponent } from './callback/callback.component';
 import { UserComponent } from './user/user.component';
@@ -11,7 +10,6 @@ import { ChatComponent } from './chat/chat.component';
 import { UsergroupsComponent } from './usergroups/usergroups.component';
 import { GroupchatComponent } from './groupchat/groupchat.component';
 
-
 export const ROUTES: Routes = [
   { path: '', component: ChatComponent },
   { path: 'profile/:email/:name', component: ProfileComponent },
@@ -22,10 +20,10 @@ export const ROUTES: Routes = [
   { path: 'groups', component: GroupComponent },
   { path: 'groups/add', component: AddComponent },
   { path: 'groups/chat/:gname', component: GroupchatComponent },
-     { path: 'groups/:groupname', component: GroupdetailComponent},
-     { path: 'groups/:groupname/join', component: JoinComponent},
-     { path: 'groups/add', component: AddComponent},
-     { path: '**', redirectTo: '' }
+  { path: 'groups/:groupname', component: GroupdetailComponent },
+  { path: 'groups/:groupname/join', component: JoinComponent },
+  { path: 'groups/add', component: AddComponent },
+  { path: '**', redirectTo: '' }
 ];
 
 export const myRoutes = RouterModule.forRoot(ROUTES);

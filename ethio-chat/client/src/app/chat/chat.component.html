@@ -4,17 +4,16 @@
 <input [(ngModel)]="message"  />
 <button (click)="sendMessage()">Send</button>  -->
 
-
 <!-- Welcome Display Bar -->
 <div style="text-align:center">
-  <mat-card>
-    <h3 *ngIf="loggedInMemberUsername">Welcome {{ loggedInMemberUsername }}</h3>
-    <h3 *ngIf="!loggedInMemberUsername">Please log in to continue</h3>
-  </mat-card>
-</div>
+    <mat-card>
+      <h3 *ngIf="LoggedInMemberName">Welcome {{ LoggedInMemberName }}</h3>
+      <h3 *ngIf="!LoggedInMemberName">Please log in to continue</h3>
+    </mat-card>
+  </div>
 
 
-
+<div *ngIf="LoggedInMemberName">
 <!-- Private Chat Form -->
 <div class="wrapper" *ngIf="chatOpenned">
   <nav class="nav" id="nav">
@@ -32,8 +31,8 @@
   <div class="inner" id="inner">
     <div class="content" id="content">
 
-      <div *ngFor="let chat of filteredChats">
-        <b>{{chat.sender}}: </b>{{chat.message}}
+      <div *ngFor="let chat of newChats">
+        <b>{{chat.senderName}}: </b>{{chat.message}}
         <br/>
         <i>sent at:{{chat.date}}</i>
       </div>
@@ -73,7 +72,7 @@
   </div>
 </div>
 
-
+</div>>
 <!-- Login area -->
 <!-- <div id="loginform" *ngIf="loggedInMemberUsername == false">
         <p>Please enter your name to continue:</p>

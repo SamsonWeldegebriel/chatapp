@@ -9,7 +9,7 @@ import { RouterModule } from '@angular/router';
 import { MatFormFieldModule } from '@angular/material/form-field';
 
 import { AppComponent } from './app.component';
-import { HomeComponent } from './home/home.component';
+
 
 import { ROUTES } from './app.routes';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -37,7 +37,7 @@ import { GroupchatComponent } from './groupchat/groupchat.component';
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent,
+
     CallbackComponent,
     ProfileComponent,
     UserComponent,

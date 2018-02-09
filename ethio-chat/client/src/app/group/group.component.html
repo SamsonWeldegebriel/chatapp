@@ -1,5 +1,4 @@
-<h1>Header</h1>
-<form>
+<form (ngSubmit)="delete(grp.gname)">
     <mat-toolbar >Group List</mat-toolbar>
         <mat-list role="list" *ngFor="let grp of groups">
             <mat-list-item role="listitem"><a [routerLink]= "['chat',grp.gname]">{{grp.gname}}</a>

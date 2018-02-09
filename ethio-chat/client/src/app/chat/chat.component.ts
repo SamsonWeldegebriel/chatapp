@@ -22,6 +22,8 @@ export class ChatComponent implements OnInit, OnDestroy {
   receiverUsername = '';
   loggedInMember: {};
 
+  newChats: any;
+
   // new chat message object
   newChatMessage = {
     message: '',
@@ -32,6 +34,7 @@ export class ChatComponent implements OnInit, OnDestroy {
   };
   chats = [];
   users;
+  isloggedin;
 
   filteredChats = [];
   constructor(
@@ -43,6 +46,7 @@ export class ChatComponent implements OnInit, OnDestroy {
     authService.handleAuthentication();
     // this.getChats();
     this.userService.getAllUsers().subscribe(res => {
+      console.log(res);
       this.users = res;
     });
 
@@ -55,33 +59,12 @@ export class ChatComponent implements OnInit, OnDestroy {
     this.newChatMessage.message = this.message;
     this.newChatMessage.sender = this.loggedInMemberUsername;
     this.newChatMessage.receiver = this.receiverUsername;
+    console.log('this newChatMessage: ', this.newChatMessage);
     this.chatService.saveChat(this.newChatMessage).subscribe(result => {
       this.socketService.emit('send-message', this.newChatMessage);
       this.message = '';
     });
   }
-
-  // saveStatus(){
-  //   this.newChatMessage.message = this.message;
-  //   this.newChatMessage.sender = this.loggedInMemberUsername;
-  //   this.newChatMessage.receiver = this.receiverName;
-  //   this.newChatMessage.status = true;
-  //   this.chatService.saveChat(this.newChatMessage).subscribe((result) => {
-  //     this.socketService.emit('send-message', this.newChatMessage);
-  //     this.message = '';
-  //     this.newChatMessage.status= false;
-  //   })
-  // }
-
-  /*
-     sendMessage(){
-    const msg = {
-      text: this.message
-    }
-    this.socketService.emit('send-message', msg);
-    this.message ='';
-  }
-  */
 
   getChats() {
     this.chatService.getAllChats().subscribe(res => (this.chats = res));
@@ -99,10 +82,10 @@ export class ChatComponent implements OnInit, OnDestroy {
       this.users = res;
     });
 
-    this.loggedInMemberUsername = this.authService.getName();
+    this.LoggedInMemberName = this.authService.getName();
     this.loggedInMemberEmail = this.authService.getEmail();
     this.authService.registrationChanged.subscribe(
-      loggedIn => (this.loggedInMemberUsername = this.authService.getName())
+      loggedIn => (this.LoggedInMemberName = this.authService.getName())
     );
 
     this.getChatsByLoggedInUser(this.authService.getName());
@@ -113,7 +96,21 @@ export class ChatComponent implements OnInit, OnDestroy {
     this.socketService.on('message-received', data => {
       this.chats.push(data);
       this.filteredChats = this.filterChat(this.chats);
+      console.log(this.filteredChats);
+
+      this.newChats = this.filteredChats.map(c => {
+        console.log('uuuu');
+        console.log(this.users);
+        console.log(c);
+        return {
+          sender: c.sender,
+          message: c.message,
+          date: c.date,
+          senderName: this.users.find(u => u.email === c.sender).name
+        };
+      });
     });
+
     this.userService.getUsers('').subscribe(result => {
       this.users = result;
     });
@@ -147,7 +144,8 @@ export class ChatComponent implements OnInit, OnDestroy {
   filterChat(data) {
     return data.filter(
       e =>
-        e.sender === this.receiverUsername || e.receiver === this.receiverUsername
+        e.sender === this.receiverUsername ||
+        e.receiver === this.receiverUsername
     );
   }
 }
