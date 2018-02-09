@@ -5,82 +5,88 @@
 <button (click)="sendMessage()">Send</button>  -->
 
 
- <!-- Welcome Display Bar -->
- <div style="text-align:center">
-  <mat-card *ngIf="loggedInMemberUsername">
-      <h3>Welcome {{ loggedInMemberUsername }}</h3>
-    </mat-card> 
+<!-- Welcome Display Bar -->
+<div style="text-align:center">
+  <mat-card>
+    <h3 *ngIf="loggedInMemberUsername">Welcome {{ loggedInMemberUsername }}</h3>
+    <h3 *ngIf="!loggedInMemberUsername">Please log in to continue</h3>
+  </mat-card>
 </div>
 
 
 
 <!-- Private Chat Form -->
 <div class="wrapper" *ngIf="chatOpenned">
-<nav class="nav" id="nav">
-  <div class="default-nav">
-    <div class="main-nav">
-      <div class="toggle"></div>
-      <div class="main-nav-item"><a class="main-nav-item-link" href="#">{{ receiverName }}</a></div>
-      <div class="options"></div>
+  <nav class="nav" id="nav">
+    <div class="default-nav">
+      <div class="main-nav">
+        <div class="toggle"></div>
+        <div class="main-nav-item">
+          <a class="main-nav-item-link" href="#">{{ receiverName }}</a>
+        </div>
+        <div class="options"></div>
+      </div>
+    </div>
+  </nav>
+
+  <div class="inner" id="inner">
+    <div class="content" id="content">
+
+      <div *ngFor="let chat of filteredChats">
+        <b>{{chat.sender}}: </b>{{chat.message}}
+        <br/>
+        <i>sent at:{{chat.date}}</i>
+      </div>
+      <div *ngFor="let message of messages">
+        {{message.text}}
+      </div>
     </div>
   </div>
-</nav>
+  <div class="bottom" id="bottom">
+    <textarea class="input" id="input" [(ngModel)]="message" placeholder="Type a message"></textarea>
+    <div class="send" id="send" (click)="sendMessage()"></div>
 
-<div class="inner" id="inner">
-  <div class="content" id="content">
-          
-          <div *ngFor="let chat of filteredChats">
-                  <b>{{chat.sender}}: </b>{{chat.message}}<br/>
-                    <i>sent at:{{chat.date}}</i>                 
-          </div>
-          <div *ngFor="let message of messages">
-              {{message.text}}
-        </div>
   </div>
 </div>
-<div class="bottom" id="bottom">
-  <textarea class="input" id="input" [(ngModel)]="message" placeholder="Type a message" ></textarea>
-  <div class="send" id="send"  (click)="sendMessage()"></div>
-    
-</div>
-</div>
 
-<div *ngIf="loggedInMemberUsername"></div>
+<div></div>
 
 
 
-<!-- List of Members Display  --> 
-<br /><br />
-<div id="userArea" class="row" *ngIf="loggedInMemberUsername">    
+<!-- List of Members Display  -->
+<br />
+<br />
+<div id="userArea" class="row" *ngIf="loggedInMemberUsername">
   <div class="col-md-4">
     <div class="well">
       <h3>Members List</h3>
       <ul class="list-group" id="users">
-        <li *ngFor="let user of users" style="list-style: none">
-          <button mat-raised-button (click)="openChat(user)" style="width: 200px">{{user.name}}</button>
-          <!-- <input type="submit" (click)="openChat()" [(ngModel)]="memberName" style="width: 200px" value="{{user.name}}" /> -->
-          <br />
-        </li>
+        <ng-container *ngFor="let user of users">
+          <li *ngIf="user.email != loggedInMemberEmail && user.name" style="list-style: none">
+            <button mat-raised-button (click)="openChat(user)">{{user.name}}</button>
+            <!-- <input type="submit" (click)="openChat()" [(ngModel)]="memberName" style="width: 200px" value="{{user.name}}" /> -->
+            <br />
+          </li>
+        </ng-container>
       </ul>
     </div>
   </div>
 </div>
 
-    
+
 <!-- Login area -->
-     <!-- <div id="loginform" *ngIf="loggedInMemberUsername == false">    
+<!-- <div id="loginform" *ngIf="loggedInMemberUsername == false">
         <p>Please enter your name to continue:</p>
         <mat-card>
             <mat-form-field>
-              
+
               <input matInput [(ngModel)]="username" placeholder="Enter name">
-            </mat-form-field>  
-            <br />    
+            </mat-form-field>
+            <br />
             <button mat-raised-button (click)="showName()">Chat Now</button>
             <mat-spinner [style.display]="showSpinner ? 'block' : 'none'"></mat-spinner>
-          </mat-card>         
+          </mat-card>
     </div> -->
 
-   <br /><br />
-
- 
+<br />
+<br />

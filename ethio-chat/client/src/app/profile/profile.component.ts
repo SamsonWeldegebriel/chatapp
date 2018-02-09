@@ -34,7 +34,7 @@ export class ProfileComponent implements OnInit {
         [Validators.required, Validators.email]
       ],
       phone: ['', Validators.pattern(this.pattern)],
-      username: route.snapshot.paramMap.get('email')
+      username: [route.snapshot.paramMap.get('email')]
     });
   }
 

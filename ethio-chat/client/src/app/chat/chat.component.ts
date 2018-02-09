@@ -14,6 +14,7 @@ export class ChatComponent implements OnInit, OnDestroy {
   message;
   username = '';
   loggedInMemberUsername = '';
+  loggedInMemberEmail = '';
   showSpinner = false;
   chatOpenned = false;
   receiverName = '';
@@ -33,17 +34,11 @@ export class ChatComponent implements OnInit, OnDestroy {
   filteredChats = [];
   constructor(
     private chatService: ChatService,
-    private authService: AuthService,
+    public authService: AuthService,
     private socketService: SocketService,
     private userService: UserService
   ) {
-    // this.getChats();
-    this.userService.getAllUsers().subscribe(res => {
-      this.users = res;
-    });
-
-    this.loggedInMemberUsername = this.authService.getName();
-    this.getChatsByLoggedInUser(this.authService.getName());
+    authService.handleAuthentication();
   }
 
   sendMessage() {
@@ -89,6 +84,19 @@ export class ChatComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    // this.getChats();
+    this.userService.getAllUsers().subscribe(res => {
+      this.users = res;
+    });
+
+    this.loggedInMemberUsername = this.authService.getName();
+    this.loggedInMemberEmail = this.authService.getEmail();
+    this.authService.registrationChanged.subscribe(
+      loggedIn => (this.loggedInMemberUsername = this.authService.getName())
+    );
+
+    this.getChatsByLoggedInUser(this.authService.getName());
+
     // this.connection =this.chatService.getMessages().subscribe(message => this.messages.push(message));
     this.chats = new Array();
     this.filteredChats = new Array();
@@ -120,8 +128,8 @@ export class ChatComponent implements OnInit, OnDestroy {
     this.loggedInMember = selectedMember;
     this.receiverName = selectedMember.name;
     this.filteredChats = this.filterChat(this.chats);
-    //this.chats.filter(e => e.sender == this.receiverName ||  e.receiver == this.receiverName)//
-    //console.log('filteres ', this.filteredChats);
+    // this.chats.filter(e => e.sender == this.receiverName ||  e.receiver == this.receiverName)//
+    //  console.log('filteres ', this.filteredChats);
   }
 
   filterChat(data) {
