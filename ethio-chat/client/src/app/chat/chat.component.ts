@@ -14,11 +14,8 @@ export class ChatComponent implements OnInit, OnDestroy {
   message;
   username = '';
   loggedInMemberUsername = '';
-<<<<<<< HEAD
   loggedInMemberEmail = '';
-=======
   LoggedInMemberName = '';
->>>>>>> 30762858fd1a1553f4c7ab5fe08e8cfb9ab7db74
   showSpinner = false;
   chatOpenned = false;
   receiverName = '';
@@ -43,9 +40,7 @@ export class ChatComponent implements OnInit, OnDestroy {
     private socketService: SocketService,
     private userService: UserService
   ) {
-<<<<<<< HEAD
     authService.handleAuthentication();
-=======
     // this.getChats();
     this.userService.getAllUsers().subscribe(res => {
       this.users = res;
@@ -54,7 +49,6 @@ export class ChatComponent implements OnInit, OnDestroy {
     this.loggedInMemberUsername = this.authService.getEmail();
     this.LoggedInMemberName = this.authService.getName();
     this.getChatsByLoggedInUser(this.loggedInMemberUsername);
->>>>>>> 30762858fd1a1553f4c7ab5fe08e8cfb9ab7db74
   }
 
   sendMessage() {
@@ -144,20 +138,16 @@ export class ChatComponent implements OnInit, OnDestroy {
     this.loggedInMember = selectedMember;
     this.receiverName = selectedMember.name;
     this.receiverUsername = selectedMember.username;
-    console.log("Receiver User Name: ", this.receiverUsername);
-    console.log("Non filtered chat: ", this.chats);
+    console.log('Receiver User Name: ', this.receiverUsername);
+    console.log('Non filtered chat: ', this.chats);
     this.filteredChats = this.filterChat(this.chats);
-<<<<<<< HEAD
-    // this.chats.filter(e => e.sender == this.receiverName ||  e.receiver == this.receiverName)//
-    //  console.log('filteres ', this.filteredChats);
-=======
-    console.log("Out putting filtered chat: ", this.filteredChats)
->>>>>>> 30762858fd1a1553f4c7ab5fe08e8cfb9ab7db74
+    console.log('Out putting filtered chat: ', this.filteredChats);
   }
 
   filterChat(data) {
     return data.filter(
-      e => e.sender == this.receiverUsername || e.receiver == this.receiverUsername
+      e =>
+        e.sender === this.receiverUsername || e.receiver === this.receiverUsername
     );
   }
 }
