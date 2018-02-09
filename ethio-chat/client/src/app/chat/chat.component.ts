@@ -14,10 +14,15 @@ export class ChatComponent implements OnInit, OnDestroy {
   message;
   username = '';
   loggedInMemberUsername = '';
+<<<<<<< HEAD
   loggedInMemberEmail = '';
+=======
+  LoggedInMemberName = '';
+>>>>>>> 30762858fd1a1553f4c7ab5fe08e8cfb9ab7db74
   showSpinner = false;
   chatOpenned = false;
   receiverName = '';
+  receiverUsername = '';
   loggedInMember: {};
 
   // new chat message object
@@ -38,13 +43,24 @@ export class ChatComponent implements OnInit, OnDestroy {
     private socketService: SocketService,
     private userService: UserService
   ) {
+<<<<<<< HEAD
     authService.handleAuthentication();
+=======
+    // this.getChats();
+    this.userService.getAllUsers().subscribe(res => {
+      this.users = res;
+    });
+
+    this.loggedInMemberUsername = this.authService.getEmail();
+    this.LoggedInMemberName = this.authService.getName();
+    this.getChatsByLoggedInUser(this.loggedInMemberUsername);
+>>>>>>> 30762858fd1a1553f4c7ab5fe08e8cfb9ab7db74
   }
 
   sendMessage() {
     this.newChatMessage.message = this.message;
     this.newChatMessage.sender = this.loggedInMemberUsername;
-    this.newChatMessage.receiver = this.receiverName;
+    this.newChatMessage.receiver = this.receiverUsername;
     this.chatService.saveChat(this.newChatMessage).subscribe(result => {
       this.socketService.emit('send-message', this.newChatMessage);
       this.message = '';
@@ -79,7 +95,7 @@ export class ChatComponent implements OnInit, OnDestroy {
 
   getChatsByLoggedInUser(loginName) {
     this.chatService
-      .getChatByUser(this.loggedInMemberUsername)
+      .getChatByUser(loginName)
       .subscribe(res => (this.chats = res));
   }
 
@@ -127,14 +143,21 @@ export class ChatComponent implements OnInit, OnDestroy {
     this.chatOpenned = true;
     this.loggedInMember = selectedMember;
     this.receiverName = selectedMember.name;
+    this.receiverUsername = selectedMember.username;
+    console.log("Receiver User Name: ", this.receiverUsername);
+    console.log("Non filtered chat: ", this.chats);
     this.filteredChats = this.filterChat(this.chats);
+<<<<<<< HEAD
     // this.chats.filter(e => e.sender == this.receiverName ||  e.receiver == this.receiverName)//
     //  console.log('filteres ', this.filteredChats);
+=======
+    console.log("Out putting filtered chat: ", this.filteredChats)
+>>>>>>> 30762858fd1a1553f4c7ab5fe08e8cfb9ab7db74
   }
 
   filterChat(data) {
     return data.filter(
-      e => e.sender === this.receiverName || e.receiver === this.receiverName
+      e => e.sender == this.receiverUsername || e.receiver == this.receiverUsername
     );
   }
 }

@@ -31,6 +31,7 @@ router.get('/:memberUsername', function(req, res, next){
         if(err)
             res.send(err);
         res.json(chat);
+        console.log('From chats.js', chat);
     });
     // db.messages.findOne({_id: mongo.ObjectId(req.params.id)},function(err, chat){
     //     if(err)
